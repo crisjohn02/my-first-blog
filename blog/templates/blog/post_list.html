@@ -1,16 +1,39 @@
+{% extends 'blog/base.html' %}
+{%load static%}
+
 <html>
     <head>
-        <title>Django Girls blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">            
+        <title>My blog</title>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div>
-            {% for post in posts %}
-                <div>
-                    <h4>{{post.published_date}}</h4>
-                    <h2><a href="">{{ post.title }}</a></h2>
-                    <p>{{ post.text|linebreaksbr }}</p>
-                </div>
-            {% endfor %}
-        </div>
+            
+
+            {% block content %}
+            <table class="table">
+                <thead>
+                    <tr class="table-active">
+                        <th scope="col">Title</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>    
+                {% for post in posts %}
+                
+                    <tbody>
+                        <tr class="post">
+                            <td>
+                                <strong><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</strong>
+                            </td>
+                            <td>{{post.published_date}}</td>
+                            <td>{{post.text |linebreaksbr}}</td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+            {% endblock %}
     </body>
 </html>
